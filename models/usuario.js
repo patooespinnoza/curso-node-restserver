@@ -5,17 +5,26 @@ const UsuarioSchema = Schema({
         type: String,
         required: [true, 'El nombre es obligatorio']
     },
+    apellido: {
+        type: String,
+        required: [true, 'El apellido es obligatorio']
+    },
+    username: {
+        type: String,
+        required: [true, 'El usuario es obligatorio'],
+        unique: true
+    },
     correo: {
         type: String,
-        required: [true, 'El correo es obligatorio'],
-        unique: true
+        default: null
+    },
+    telefono: {
+        type: Number,
+        default: null
     },
     password: {
         type: String,
         required: [true, 'La contraseña es obligatoria']
-    },
-    img: {
-        type: String,
     },
     rol: {
         type: String,
@@ -26,11 +35,6 @@ const UsuarioSchema = Schema({
         type: Boolean,
         default: true
     },
-    google: {
-        type: Boolean,
-        default: false
-    },
-
 });
 
 UsuarioSchema.methods.toJSON = function (){ //excluye datos para devolver en el json

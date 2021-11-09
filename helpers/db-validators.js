@@ -17,6 +17,24 @@ const esEmailValido = async(correo = '') => {
     }
 }
 
+const esUsuarioValido = async(username = '') => {
+
+    const existeUser = await Usuario.findOne({ username });
+
+    if ( existeUser ){
+        throw new Error(`El correo: ${ username } ya esta registrado`);
+    }
+}
+
+const esTelefonoValido = async(telefono = '') => {
+
+    const existeTelefono = await Usuario.findOne({ telefono });
+
+    if ( existeTelefono ){
+        throw new Error(`El correo: ${ telefono } ya esta registrado`);
+    }
+}
+
 const existeUsuarioPorId = async(id) => {
 
     const existeUsuario = await Usuario.findById(id);
@@ -29,5 +47,7 @@ const existeUsuarioPorId = async(id) => {
 module.exports = {
     esRoleValido,
     esEmailValido,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    esUsuarioValido,
+    esTelefonoValido
 }

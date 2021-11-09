@@ -9,8 +9,8 @@ const usuariosGET = async(req, res = response) => {
 
     // const {q, nombre = 'No Name', apikey} = req.query; 
     // pagination con variable ?limite=5
-    const {limite = 5, desde = 0} = req.query;
-    const query = {estado:true};
+    const {limite = 5, desde = 0, tipo = "MECANICO"} = req.query;
+    const query = {estado:true, rol: tipo};
     // const usuarios = await Usuario.find({estado:true})
     //     .skip(Number(desde))
     //     .limit(Number(limite));
@@ -25,16 +25,22 @@ const usuariosGET = async(req, res = response) => {
         .limit(Number(limite))
     ]);
 
-    res.json({
-      total,
-      usuarios  
-    });
+    res.json(
+      usuarios
+    );
 };
+
+const userGet = async(req, res = response) => {
+
+    const { id } = req.params;
+    const usuario = await Usuario.findById(id);
+    res.json(usuario);
+}
 
 const usuariosPut = async(req, res = response) => {
 
     const { id } = req.params;
-    const { _id, password, google, correo, ...resto } = req.body; //se destructura lo que no quiero cambiar
+    const { _id, password, username, ...resto } = req.body; //se destructura lo que no quiero cambiar
 
     // todo validar contra la base de datos
     if( password ){
@@ -52,9 +58,9 @@ const usuariosPut = async(req, res = response) => {
 
 const usuariosPost = async(req, res = response) => {
     
-    const { nombre, correo, password, rol }  = req.body;
+    const { nombre, apellido, telefono, username, correo, password, rol }  = req.body;
 
-    const usuario = new Usuario( {nombre, correo, password, rol} );
+    const usuario = new Usuario( {nombre, correo, password, rol, apellido, username, telefono} );
 
     //Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
@@ -80,14 +86,15 @@ const usuariosDelete = async(req, res = response) => {
     //update
     const usuario = await Usuario.findByIdAndUpdate(id, {estado : false});
 
-    res.json({
+    res.json(
         usuario
-    });
+    );
 }
 
 module.exports = {
     usuariosGET,
     usuariosPut,
     usuariosPost,
-    usuariosDelete
+    usuariosDelete,
+    userGet
 }
