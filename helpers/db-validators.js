@@ -68,11 +68,7 @@ module.exports = {
     esRoleValido,
     esEmailValido,
     existeUsuarioPorId,
-<<<<<<< HEAD
-    esUsuarioValido,
-    esTelefonoValido
-=======
     existeCategoriaPorId,
     existeProductoPorId
->>>>>>> cbb566aeb7196759603797dfc04a59e20b4a7e4c
+
 }

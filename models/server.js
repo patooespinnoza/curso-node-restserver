@@ -7,8 +7,6 @@ class Server {
     constructor(){
         this.app = express();
         this.port = 8080;
-        this.usuariosPath = '/api/usuarios';
-        this.authPath = '/api/auth';
 
         this.paths = {
             auth: '/api/auth',
@@ -16,7 +14,6 @@ class Server {
             categorias: '/api/categorias',
             productos: '/api/productos'
         }
-
 
         //conectar a db
         this.conectarDB();
